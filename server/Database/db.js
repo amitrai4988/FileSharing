@@ -1,10 +1,16 @@
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const DBConnection = async () => {
-    const DB_URL = `mongodb+srv://akum2018:Kumar1234@cluster0.hlitzp1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+    const DB_URL = process.env.DB_URI; 
 
     try {
-        await mongoose.connect(DB_URL); 
+        await mongoose.connect(DB_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
         console.log("Database connected successfully");
     } catch (e) {
         console.error("Error while connecting to the database:", e.message);
